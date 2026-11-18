@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAPECRYPT | Secure Image Encryption</title>
+    <style>
+/* Basic styling for SHAPECRYPT UI */
+body {font-family: 'Inter', sans-serif; background:#f8f9fa; margin:0; padding:0; color:#212529;}
+header.app-header {background:#343a40; color:#fff; padding:1rem 0; text-align:center;}
+.header-container {max-width:960px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;}
+.logo-badge {background:#17a2b8; padding:0.3rem 0.6rem; border-radius:4px; margin-right:0.5rem; font-weight:600;}
+.main-container {max-width:960px; margin:2rem auto; padding:0 1rem;}
+.card {background:#fff; border:1px solid #dee2e6; border-radius:4px; padding:1rem; margin-bottom:1.5rem;}
+.workflow-card .card-header {display:flex; align-items:center; margin-bottom:0.5rem;}
+.step-num {background:#17a2b8; color:#fff; border-radius:50%; width:1.5rem; height:1.5rem; display:inline-flex; align-items:center; justify-content:center; margin-right:0.5rem;}
+.form-group {margin-bottom:1rem;}
+input[type="file"], input[type="password"], input[type="text"], select {width:100%; padding:0.4rem; margin-top:0.3rem; border:1px solid #ced4da; border-radius:4px;}
+button.btn {padding:0.5rem 1rem; border:none; border-radius:4px; cursor:pointer;}
+button.btn-primary {background:#007bff; color:#fff;}
+button.btn-secondary {background:#6c757d; color:#fff;}
+button.btn:disabled {opacity:0.6; cursor:not-allowed;}
+#status-dot {display:inline-block; width:0.8rem; height:0.8rem; background:#ffc107; border-radius:50%; margin-right:0.3rem;}
+footer.app-footer {background:#343a40; color:#fff; text-align:center; padding:1rem 0; margin-top:2rem;}
+.metrics-table {width:100%; border-collapse:collapse; margin-top:1rem;}
+.metrics-table th, .metrics-table td {border:1px solid #dee2e6; padding:0.5rem; text-align:left;}
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <span class="logo-badge">AES-256-GCM</span>
+                <h1>SHAPECRYPT</h1>
+                <p class="tagline">Shape-Based Pixel Shuffling with AES-256-GCM for Secure Image Encryption</p>
+            </div>
+            <div class="header-status">
+                <span class="status-indicator" id="status-dot"></span>
+                <span class="status-text" id="status-label">Checking Backend...</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="card workflow-card">
+            <div class="card-header"><span class="step-num">01</span><h3>Encrypt Image</h3></div>
+            <form id="encrypt-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="enc-image">Select Image</label>
+                    <input type="file" id="enc-image" name="image" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="patterns">Pattern Chain (comma‑separated, e.g., circle,triangle)</label>
+                    <input type="text" id="patterns" name="patterns" placeholder="circle,triangle">
+                </div>
+                <div class="form-group">
+                    <label for="rgb-order">RGB Channel Order</label>
+                    <select id="rgb-order" name="rgb_order">
+                        <option value="default">Default (no shuffle)</option>
+                        <option value="RGB">RGB</option>
+                        <option value="RBG">RBG</option>
+                        <option value="GRB">GRB</option>
+                        <option value="GBR">GBR</option>
+                        <option value="BRG">BRG</option>
+                        <option value="BGR">BGR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="enc-pwd">Password</label>
+                    <input type="password" id="enc-pwd" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Encrypt</button>
+            </form>
+        </section>
+
+        <section class="card workflow-card">
+            <div class="card-header"><span class="step-num">02</span><h3>Decrypt Package</h3></div>
+            <form id="decrypt-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="dec-package">Encrypted Package</label>
+                    <input type="file" id="dec-package" name="package" accept=".shapecrypt,.enc" required>
+                </div>
+                <div class="form-group">
+                    <label for="dec-pwd">Password</label>
+                    <input type="password" id="dec-pwd" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Decrypt</button>
+            </form>
+        </section>
+
+        <section class="card workflow-card" id="metrics-section" style="display:none;">
+            <div class="card-header"><span class="step-num">03</span><h3>Metrics & Security Analysis</h3></div>
+            <div id="metrics-content"></div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p><strong>SHAPECRYPT</strong> • College Project • Dual‑Layer Image Encryption System</p>
+            <p class="footer-note">Layer 1: Deterministic Geometric Permutation & RGB Channel Shuffle | Layer 2: AES-256-GCM Authenticated Encryption</p>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

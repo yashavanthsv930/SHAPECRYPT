@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE & editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Runtime storage (preserve folders with .gitkeep)
+uploads/*
+!uploads/.gitkeep
+output/*
+!output/.gitkeep
+
+# OS specific files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Exclude generated files
+# Decrypted image from UI
+decrypted.png
+# Encrypted package files generated during testing
+*.shapecrypt
