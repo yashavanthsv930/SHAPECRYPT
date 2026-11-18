@@ -70,7 +70,7 @@ RGB_ORDER_MAP = {
 
     # Validate image file
 # Import metrics
-from metrics.analysis import run_all
+
 
 @app.route("/encrypt", methods=["POST"])
 def encrypt_route():
@@ -154,19 +154,7 @@ def encrypt_route():
 
     total_time = time.perf_counter() - total_start
 
-    # Compute metrics (optional, not returned to UI in raw mode)
-    timings = {
-        "pattern_time_sec": pattern_time,
-        "rgb_time_sec": rgb_time,
-        "aes_encryption_time_sec": aes_time,
-        "total_encryption_time_sec": total_time,
-    }
-    # Metrics are supplementary. A metrics failure must not invalidate a valid
-    # encrypted package or turn a successful encryption into an HTTP 500.
-    try:
-        _ = run_all(original_arr, img_arr, encrypted_pkg, timings)
-    except Exception:
-        app.logger.exception("Optional metrics calculation failed after encryption")
+    # Compute metrics (optional, not returned to UI in raw mode)    
 
     # Return encrypted package as raw bytes
     response = app.response_class(
